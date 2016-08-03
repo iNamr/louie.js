@@ -11,7 +11,7 @@ var token = config.Bot.token
 var prefix = config.Bot.prefix
 
 function stop(){
-  process.end();
+  process.exit(0);
 }
 
 bot.on("ready", () => {
