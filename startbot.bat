@@ -11,6 +11,7 @@ IF %NODE_VER% EQU null (
 	)
 ) ELSE (
 	echo Ready to launch bot
+	cls
 	node run.js
 	pause
 )

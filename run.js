@@ -19,7 +19,7 @@ function stop(){
 }
 
 bot.on("ready", () => {
-	console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
+	console.log(`Connected! Serving in ${bot.channels.length} channels.`);
 });
 
 bot.on("disconnected", () => {
@@ -90,4 +90,11 @@ setInterval(function() {
   });
 }, autoMoneyInterval)
 
+console.log("...Settings...\n\n");
+console.log("..Money Settings..");
+console.log("Prefix: " + prefix);
+console.log("Automatic Money Interval: " + autoMoneyInterval);
+console.log("Automatc Money Ammount: " + autoMoney);
+
+console.log("Logging into bot with token");
 bot.loginWithToken(token);
