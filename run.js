@@ -34,6 +34,12 @@ bot.on("message", function(message) {
         console.log("Bot ended by command");
         setTimeout(stop, 2500)
     }
+    if(message.content === prefix + "icon"){
+      bot.sendFile(message, "./images/icon.png", "icon.png", (err, sentMessage) => {
+        if(err)
+          console.log("Couldn't send icon: ", err);
+      });
+    }
 });
 
 bot.loginWithToken(token);
