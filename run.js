@@ -3,8 +3,10 @@ var fs = require('fs');
 var ini = require('ini');
 var path = require('path');
 
+//Parse config
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
 
+// Declare bot
 var bot = new Discord.Client({forceFetchMembers: true})
 
 //Config files
@@ -14,21 +16,25 @@ var autoMoney = config.Money.autoMoney
 var autoMoneyInterval = config.Money.autoMoneyInterval * 1000;
 var moneyName = config.Money.name
 var moneyNamePlural = config.Money.pluralName
+var owner = config.Bot.owner
 
+//Function to call when stopping server
 function stop(){
   bot.logout();
   process.exit(0);
 }
 
+//Logger
 function log(userid, user, content) {
   console.log(userid + "(" + user + ")" + " - " + content);
 }
 
-
+//Log out a message when bot is ready
 bot.on("ready", () => {
 	console.log(`Connected! Serving in ${bot.channels.length} channels.`);
 });
 
+//Log out a message on bot crash
 bot.on("disconnected", () => {
 
 	console.log("Disconnected!");
@@ -36,24 +42,25 @@ bot.on("disconnected", () => {
 
 });
 
+//Declare commands
 bot.on("message", function(message) {
-    if(message.content === prefix + "ping") {
+    if(message.content === prefix + "ping") { //Ping the bot to verify it's working
         bot.reply(message, "Pong!");
         log(message.author.id, message.author.username, message.content);
     }
-    if(message.content === prefix + "disconnect") {
+    if(message.content === prefix + "disconnect" && message.author.id == owner) { //Shutdown the bot and disconnect it from the server
         bot.reply(message, "Cya later");
         log(message.author.id, message.author.username, message.content);
         setTimeout(stop, 2500)
     }
-    if(message.content === prefix + "icon"){
+    if(message.content === prefix + "icon"){ //Fetch LouieK22's beutiful icon, or whatever icon.png is set to
       log(message.author.id, message.author.username, message.content);
       bot.sendFile(message, "./images/icon.png", "icon.png", (err, sentMessage) => {
         if(err)
           console.log("Couldn't send icon: ", err);
       });
     }
-    if(message.content === prefix + "join"){
+    if(message.content === prefix + "join"){ //Join the economy, creates json file for user
       fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
           bot.reply(message, "You are already in the economy!");
@@ -65,7 +72,7 @@ bot.on("message", function(message) {
         }
       });
     }
-    if(message.content == prefix + moneyNamePlural){
+    if(message.content == prefix + moneyNamePlural){ //Check money
       fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
           var contents = fs.readFileSync("./users/" + message.author.id + ".json");
@@ -78,8 +85,8 @@ bot.on("message", function(message) {
         }
       });
     }
-    if(message.content == prefix + "help"){
-      bot.reply(message, "Commands:");
+    if(message.content == prefix + "help"){ //Get commands
+      bot.reply(message, "``Commands:\n" + prefix + "ping" + " - Pings the bot to verify it's working\n" + prefix + "icon" + " - Shows the icon that was set int he bot's files.\n" + prefix + "join" + " - Join the server's economy\n" + prefix + moneyNamePlural + " - Check how many " + moneyNamePlural + " you have.``");
       log(message.author.id, message.author.username, message.content);
     }
 });
