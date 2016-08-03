@@ -45,7 +45,7 @@ bot.on("message", function(message) {
       });
     }
     if(message.content === prefix + "join"){
-      path.exists('./users/' + message.author.id + '.json', function(exists) {
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
           console.log(message.author.username + " tried to join the economy, but it already in it.");
           bot.reply(message, "You are already in the economy!");
