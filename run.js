@@ -94,7 +94,7 @@ console.log("...Settings...\n");
 console.log("..Money Settings..");
 console.log("Prefix: " + prefix);
 console.log("Automatic Money Interval: " + autoMoneyInterval);
-console.log("Automatc Money Ammount: " + autoMoney);
+console.log("Automatc Money Ammount: " + autoMoney + "\n");
 
-console.log("Logging into bot with token");
+console.log("^^^End of Settings^^^");
 bot.loginWithToken(token);
