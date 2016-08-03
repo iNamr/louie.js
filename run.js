@@ -1,6 +1,6 @@
 var Discord = require("discord.js");
-var fs = require('fs')
-  , ini = require('ini')
+var fs = require('fs');
+var ini = require('ini');
 var path = require('path');
 
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
