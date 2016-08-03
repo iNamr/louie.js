@@ -8,6 +8,7 @@ var bot = new Discord.Client();
 
 //Config files
 var token = config.Bot.token
+var prefix = config.Bot.prefix
 
 bot.on("ready", () => {
 	console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
@@ -18,6 +19,16 @@ bot.on("disconnected", () => {
 	console.log("Disconnected!");
 	process.exit(1); //exit node.js with an error
 
+});
+
+bot.on("message", function(message) {
+    if(message.content === prefix + "ping") {
+        bot.reply(message, "Pong!");
+    }
+    if(message.content === prefix + "disconnect") {
+      console.log("Disconnect on command");
+    	process.exit(0);
+    }
 });
 
 bot.loginWithToken(token);
