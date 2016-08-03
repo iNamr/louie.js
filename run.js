@@ -6,7 +6,7 @@ var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
 
 var bot = new Discord.Client();
 
-\\Config files
+//Config files
 var token = config.Bot.tokens
 
 bot.on("ready", () => {
