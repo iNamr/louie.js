@@ -25,8 +25,11 @@ bot.on("message", function(message) {
     if(message.content === prefix + "ping") {
         bot.reply(message, "Pong!");
     }
+});
+
+bot.on("message", function(message) {
     if(message.content === prefix + "disconnect") {
-        bot.reply(message, "Goodbye");
+        bot.reply(message, "Goodbye!");
     }
 });
 
