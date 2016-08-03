@@ -10,6 +10,10 @@ var bot = new Discord.Client();
 var token = config.Bot.token
 var prefix = config.Bot.prefix
 
+function stop(){
+  process.end();
+}
+
 bot.on("ready", () => {
 	console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
 });
@@ -28,7 +32,7 @@ bot.on("message", function(message) {
     if(message.content === prefix + "disconnect") {
         bot.reply(message, "Cya later");
         console.log("Bot ended by command");
-        setTimeout(process.end(0), 2500)
+        setTimeout(stop, 2500)
     }
 });
 
