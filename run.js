@@ -11,6 +11,7 @@ var token = config.Bot.token
 var prefix = config.Bot.prefix
 
 function stop(){
+  bot.logout();
   process.exit(0);
 }
 
@@ -28,11 +29,19 @@ bot.on("disconnected", () => {
 bot.on("message", function(message) {
     if(message.content === prefix + "ping") {
         bot.reply(message, "Pong!");
+        console.log("Ping from: " + message.author.username);
     }
     if(message.content === prefix + "disconnect") {
         bot.reply(message, "Cya later");
-        console.log("Bot ended by command");
+        console.log("Bot shutdown by: " + message.author.username);
         setTimeout(stop, 2500)
+    }
+    if(message.content === prefix + "icon"){
+      console.log("Icon request by: " + message.author.username);
+      bot.sendFile(message, "./images/icon.png", "icon.png", (err, sentMessage) => {
+        if(err)
+          console.log("Couldn't send icon: ", err);
+      });
     }
 });
 
