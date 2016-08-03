@@ -64,7 +64,7 @@ setInterval(function() {
   console.log('Paying money');
   users.forEach(function(entry) {
     var userid = entry.slice(0, -5)
-    if(entry !== "temp.json" && client.users.get(userid).status !== "offline"){
+    if(entry !== "temp.json" && bot.users.get(userid).status !== "offline"){
       var fileName = './users/' + entry;
       var file = require(fileName);
 
