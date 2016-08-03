@@ -61,7 +61,7 @@ bot.on("message", function(message) {
 setInterval(function() {
   var users = fs.readdirSync('./users')
   console.log('Paying money');
-  for(var i = 0; i &lt; fruits.length; i++) {
+  for(var i = 0; i &lt; users.length; i++) {
     var fileName = './users/' + users[i];
     if(fileName !== "temp.json"){
       var file = require(fileName);
