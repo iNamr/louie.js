@@ -10,6 +10,8 @@ var bot = new Discord.Client({forceFetchMembers: true})
 //Config files
 var token = config.Bot.token
 var prefix = config.Bot.prefix
+var autoMoney = config.Bot.autoMoney
+var autoMoneyInterval = config.Bot.autoMoneyInterval
 
 function stop(){
   bot.logout();
@@ -79,13 +81,13 @@ setInterval(function() {
       var fileName = './users/' + entry;
       var file = require(fileName);
 
-      file.money += 5;
+      file.money += autoMoney;
 
       fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
       if (err) return console.log(err);
       });
     };
   });
-}, 5000)
+}, autoMoneyInterval)
 
 bot.loginWithToken(token);
