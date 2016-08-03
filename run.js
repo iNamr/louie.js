@@ -52,6 +52,11 @@ bot.on("message", function(message) {
         bot.reply(message, "Cya later");
         log(message.author.id, message.author.username, message.content);
         setTimeout(stop, 2500)
+    } else{
+      if(message.content === prefix + "disconnect"){
+        bot.reply(message, "You can't do that!");
+        log(message.author.id, message.author.username, message.content);
+      }
     }
     if(message.content === prefix + "icon"){ //Fetch LouieK22's beutiful icon, or whatever icon.png is set to
       log(message.author.id, message.author.username, message.content);
