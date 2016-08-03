@@ -1,6 +1,7 @@
 var Discord = require("discord.js");
-var fs = require('fs')
-  , ini = require('ini')
+var fs = require('fs');
+var ini = require('ini');
+var path = require('path');
 
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
 
@@ -41,6 +42,18 @@ bot.on("message", function(message) {
       bot.sendFile(message, "./images/icon.png", "icon.png", (err, sentMessage) => {
         if(err)
           console.log("Couldn't send icon: ", err);
+      });
+    }
+    if(message.content === prefix + "join"){
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
+        if (exists) {
+          console.log(message.author.username + " tried to join the economy, but it already in it.");
+          bot.reply(message, "You are already in the economy!");
+        } else {
+          console.log(message.author.username + " has joined the economy!");
+          fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('./users/' + message.author.id + '.json'));
+          bot.reply(message, "Welcome to the economy of this server!");
+        }
       });
     }
 });
