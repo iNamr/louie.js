@@ -5,11 +5,13 @@ var path = require('path');
 
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
 
-var bot = new Discord.Client();
+var bot = new Discord.Client({forceFetchMembers: true})
 
 //Config files
 var token = config.Bot.token
 var prefix = config.Bot.prefix
+var autoMoney = config.Money.autoMoney
+var autoMoneyInterval = config.Money.autoMoneyInterval * 1000;
 
 function stop(){
   bot.logout();
@@ -56,6 +58,36 @@ bot.on("message", function(message) {
         }
       });
     }
+    if(message.content == prefix + "money"){
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
+        if (exists) {
+          var contents = fs.readFileSync("./users/" + message.author.id + ".json");
+          var jsonContent = JSON.parse(contents);
+          bot.reply(message, "Your money: " + jsonContent.money);
+        } else {
+          bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+        }
+      });
+    }
 });
+
+setInterval(function() {
+  var users = fs.readdirSync('./users')
+  var numUsers = users.length
+  console.log('Paying money');
+  users.forEach(function(entry) {
+    var userid = entry.slice(0, -5)
+    if(entry !== "temp.json" && bot.users.get(userid).status !== "offline"){
+      var fileName = './users/' + entry;
+      var file = require(fileName);
+
+      file.money += autoMoney;
+
+      fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
+      if (err) return console.log(err);
+      });
+    };
+  });
+}, autoMoneyInterval)
 
 bot.loginWithToken(token);
