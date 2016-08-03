@@ -56,6 +56,17 @@ bot.on("message", function(message) {
         }
       });
     }
+    if(message.content == prefix + "money"){
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
+        if (exists) {
+          var contents = fs.readFileSync("./users/" + message.author.id + ".json");
+          var jsonContent = JSON.parse(contents);
+          bot.reply(message, "Your money: " + jsonContent.money);
+        } else {
+          bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+        }
+      });
+    }
 });
 
 setInterval(function() {
