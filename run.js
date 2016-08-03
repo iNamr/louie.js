@@ -43,6 +43,10 @@ bot.on("message", function(message) {
           console.log("Couldn't send icon: ", err);
       });
     }
+    if(message.content === prefix + "join"){
+      console.log(message.author + " has joined the economy!");
+      fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('./users[user].json'));
+    }
 });
 
 bot.loginWithToken(token);
