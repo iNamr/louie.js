@@ -64,7 +64,7 @@ setInterval(function() {
   console.log('Paying money');
   users.forEach(function(entry) {
     console.log(entry);
-    var fileName = './users/'entry;
+    var fileName = './users/' + entry;
     var file = require(fileName);
 
     file.money += 5;
