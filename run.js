@@ -67,7 +67,7 @@ setInterval(function() {
     if(fileName !== "temp.json"){
       var file = require(fileName);
 
-      file.key += 5;
+      file.money += 5;
 
       fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
       if (err) return console.log(err);
