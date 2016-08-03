@@ -46,7 +46,7 @@ bot.on("message", function(message) {
     if(message.content === prefix + "join"){
       console.log(message.author.username + " has joined the economy!");
       var user = message.author
-      var path = "./users" + user + ".json"
+      fs.closeSync(fs.openSync('./users/' + user + '.json', 'w'));
       fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('./users/' + user + '.json'));
     }
 });
