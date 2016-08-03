@@ -7,7 +7,7 @@ var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
 var bot = new Discord.Client();
 
 //Config files
-var token = config.Bot.tokens
+var token = config.Bot.token
 
 bot.on("ready", () => {
 	console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
@@ -19,3 +19,5 @@ bot.on("disconnected", () => {
 	process.exit(1); //exit node.js with an error
 
 });
+
+bot.loginWithToken(token);
