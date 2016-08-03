@@ -12,6 +12,8 @@ var token = config.Bot.token
 var prefix = config.Bot.prefix
 var autoMoney = config.Money.autoMoney
 var autoMoneyInterval = config.Money.autoMoneyInterval * 1000;
+var moneyName = config.Money.name
+var moneyNamePlural = config.Money.pluralName
 
 function stop(){
   bot.logout();
@@ -58,16 +60,20 @@ bot.on("message", function(message) {
         }
       });
     }
-    if(message.content == prefix + "money"){
+    if(message.content == prefix + moneyNamePlural){
       fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
           var contents = fs.readFileSync("./users/" + message.author.id + ".json");
           var jsonContent = JSON.parse(contents);
-          bot.reply(message, "Your money: " + jsonContent.money);
+          bot.reply(message, "Your " + moneyNamePlural + ": " + jsonContent.money);
         } else {
           bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
         }
       });
+    }
+    if(message.content == prefix + "help"){
+      bot.reply(message, "Commands:");
+      console.log(message.author.id + "(" + message.author.username + ")" + " - " + message.content);
     }
 });
 
@@ -96,5 +102,5 @@ console.log("Prefix: " + prefix);
 console.log("Automatic Money Interval: " + autoMoneyInterval);
 console.log("Automatc Money Ammount: " + autoMoney + "\n");
 
-console.log("^^^End of Settings^^^");
+console.log("^^^End of Settings^^^\n");
 bot.loginWithToken(token);
