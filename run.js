@@ -63,17 +63,16 @@ setInterval(function() {
   var numUsers = users.length
   console.log('Paying money');
   users.forEach(function(entry) {
-    console.log(entry);
-    var fileName = './users/' + entry;
-    var file = require(fileName);
+    if(entry !== "temp.json"){
+      var fileName = './users/' + entry;
+      var file = require(fileName);
 
-    file.money += 5;
+      file.money += 5;
 
-    fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
-    if (err) return console.log(err);
-      console.log(JSON.stringify(file));
-      console.log('writing to ' + fileName);
-    });
+      fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
+      if (err) return console.log(err);
+      });
+    };
   });
 }, 5000)
 
