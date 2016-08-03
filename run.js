@@ -10,8 +10,8 @@ var bot = new Discord.Client({forceFetchMembers: true})
 //Config files
 var token = config.Bot.token
 var prefix = config.Bot.prefix
-var autoMoney = config.Bot.autoMoney
-var autoMoneyInterval = config.Bot.autoMoneyInterval
+var autoMoney = config.Money.autoMoney
+var autoMoneyInterval = config.Money.autoMoneyInterval * 1000;
 
 function stop(){
   bot.logout();
@@ -88,6 +88,6 @@ setInterval(function() {
       });
     };
   });
-}, autoMoneyInterval*1000)
+}, autoMoneyInterval)
 
 bot.loginWithToken(token);
