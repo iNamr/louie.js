@@ -5,7 +5,7 @@ var path = require('path');
 
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
 
-var bot = new Discord.Client();
+var bot = new Discord.Client({forceFetchMembers: true})
 
 //Config files
 var token = config.Bot.token
@@ -63,7 +63,8 @@ setInterval(function() {
   var numUsers = users.length
   console.log('Paying money');
   users.forEach(function(entry) {
-    if(entry !== "temp.json"){
+    var userid = entry.slice(0, -5)
+    if(entry !== "temp.json" && client.users.get(userid).status !== "offline"){
       var fileName = './users/' + entry;
       var file = require(fileName);
 
