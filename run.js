@@ -81,7 +81,7 @@ setInterval(function() {
       var fileName = './users/' + entry;
       var file = require(fileName);
 
-      file.money += autoMoney;
+      file.money += Number(autoMoney);
 
       fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
       if (err) return console.log(err);
