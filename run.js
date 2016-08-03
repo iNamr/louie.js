@@ -90,7 +90,7 @@ setInterval(function() {
   });
 }, autoMoneyInterval)
 
-console.log("...Settings...\n\n");
+console.log("...Settings...\n");
 console.log("..Money Settings..");
 console.log("Prefix: " + prefix);
 console.log("Automatic Money Interval: " + autoMoneyInterval);
