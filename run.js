@@ -88,6 +88,6 @@ setInterval(function() {
       });
     };
   });
-}, autoMoneyInterval)
+}, autoMoneyInterval*1000)
 
 bot.loginWithToken(token);
