@@ -28,7 +28,7 @@ bot.on("message", function(message) {
     if(message.content === prefix + "disconnect") {
         bot.reply(message, "Cya later");
         console.log("Bot ended by command");
-        process.exit(0);
+        setTimeout(process.end(0), 2500)
     }
 });
 
