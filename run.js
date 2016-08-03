@@ -44,8 +44,8 @@ bot.on("message", function(message) {
       });
     }
     if(message.content === prefix + "join"){
-      console.log(message.author + " has joined the economy!");
-      fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('./users[user].json'));
+      console.log(message.author.username + " has joined the economy!");
+      fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('./users/[message.author].json'));
     }
 });
 
