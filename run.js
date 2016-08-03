@@ -46,13 +46,7 @@ bot.on("message", function(message) {
     if(message.content === prefix + "join"){
       console.log(message.author.username + " has joined the economy!");
       var user = message.author
-      fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('/users/clone.json'));
-      fs.chmod('./users/clone.json', 0700, function(err){
-        if(err) throw err;
-      });
-      fs.rename('/users/clone.json', '/users/' + user + '.json', function (err) {
-        if (err) throw err;
-      });
+      fs.createReadStream('./users/temp.json').pipe(fs.createWriteStream('./users/clone.json'));
     }
 });
 
