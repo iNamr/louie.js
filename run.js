@@ -26,7 +26,9 @@ bot.on("message", function(message) {
         bot.reply(message, "Pong!");
     }
     if(message.content === prefix + "disconnect") {
-        bot.reply(message, "Goodbye!");
+        bot.reply(message, "Cya later");
+        console.log("Bot ended by command");
+        process.end(0)
     }
 });
 
