@@ -62,9 +62,9 @@ setInterval(function() {
   var users = fs.readdirSync('./users')
   var numUsers = users.length
   console.log('Paying money');
-  for(var i = 0; i > numUsers; i++) {
-    console.log("Giving money to a player");
-  }
+  users.forEach(function(entry) {
+    console.log(entry);
+  });
 }, 5000)
 
 bot.loginWithToken(token);
