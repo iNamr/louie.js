@@ -62,7 +62,7 @@ setInterval(function() {
   var users = fs.readdirSync('./users')
   var numUsers = users.length
   console.log('Paying money');
-  for(var i = 0; numUsers, i++) {
+  for(var i = 0; i > numUsers; i++) {
     var fileName = './users/' + users[i];
     if(fileName !== "temp.json"){
       var file = require(fileName);
