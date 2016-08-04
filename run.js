@@ -33,6 +33,11 @@ function log(userid, user, content) {
   console.log(userid + "(" + user + ")" + " - " + content);
 }
 
+//Log purchases to a permanent log
+function receipt(userid, user, item, cost) {
+  console.log(userid + "(" + user + ")" + " bought " + item + " for " + cost + moneyNamePlural);
+}
+
 //Log out a message when bot is ready
 bot.on("ready", () => {
 	console.log(`Connected! Serving in ${bot.channels.length} channels.`);
@@ -110,8 +115,6 @@ bot.on("message", function(message) {
     if(message.content == prefix + "rankup" && rankEnable == true){
       fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
-          bot.reply(message, "Getting rankup");
-          //
           var contents = fs.readFileSync("./users/" + message.author.id + ".json");
           var jsonContent = JSON.parse(contents);
 
@@ -125,8 +128,11 @@ bot.on("message", function(message) {
               fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
               if (err) return console.log(err);
               });
+
+              receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, 10)
             } else {
               bot.reply(message, "You do not have enough money to rank up");
+              log(message.author.id, message.author.username, message.content);
             }
           } else {
             var nextRank = jsonContent.rank + 1;
@@ -140,8 +146,11 @@ bot.on("message", function(message) {
               fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
               if (err) return console.log(err);
               });
+
+              receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, nextRankCost)
             } else {
               bot.reply(message, "You do not have enough money to rank up");
+              log(message.author.id, message.author.username, message.content);
             }
           }
 
