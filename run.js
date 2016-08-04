@@ -100,7 +100,7 @@ bot.on("message", function(message) {
       });
     }
     if(message.content == prefix + "help"){ //Get commands
-      bot.reply(message, "``Commands:\n" + prefix + "ping" + " - Pings the bot to verify it's working\n" + prefix + "icon" + " - Shows the icon that was set int he bot's files.\n" + prefix + "join" + " - Join the server's economy\n" + prefix + moneyNamePlural + " - Check how many " + moneyNamePlural + " you have.\n" + prefix + "shop" + " - Shop for goodies, corrently not implemented\n" + prefix + "buy" + " - Buy an item directly by name\n" + prefix + "rank" + " - Check your current rank\n" + prefix + "rankup" + " - spend some of your " + moneyNamePlural + " to rank up on MoneyBot, this does NOT effect Mee6 Bot.``");
+      bot.reply(message, "``Commands:\n" + prefix + "ping" + " - Pings the bot to verify it's working\n" + prefix + "icon" + " - Shows the icon that was set in the bot's files.\n" + prefix + "join" + " - Join the server's economy\n" + prefix + moneyNamePlural + " - Check how many " + moneyNamePlural + " you have.\n" + prefix + "shop" + " - Shop for goodies, corrently not implemented\n" + prefix + "buy" + " - Buy an item directly by name\n" + prefix + "rank" + " - Check your current rank\n" + prefix + "rankup" + " - spend some of your " + moneyNamePlural + " to rank up on MoneyBot, this does NOT effect Mee6 Bot.``");
       log(message.author.id, message.author.username, message.content);
     }
     if(message.content.startsWith(prefix + "buy ")){
