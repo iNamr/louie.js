@@ -125,6 +125,8 @@ bot.on("message", function(message) {
               fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
               if (err) return console.log(err);
               });
+            } else {
+              bot.reply(message, "You do not have enough money to rank up");
             }
           } else {
             var nextRank = jsonContent.rank + 1;
@@ -138,6 +140,8 @@ bot.on("message", function(message) {
               fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
               if (err) return console.log(err);
               });
+            } else {
+              bot.reply(message, "You do not have enough money to rank up");
             }
           }
 
