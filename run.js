@@ -17,6 +17,10 @@ var autoMoneyInterval = config.Money.autoMoneyInterval * 1000;
 var moneyName = config.Money.name
 var moneyNamePlural = config.Money.pluralName
 var owner = config.Bot.owner
+var rankEnable = config.Ranks.enabled
+var maxRank = config.Ranks.maxRank
+var rankInc = config.Ranks.rankInc
+var rankBase = config.Ranks.rankBase
 
 //Function to call when stopping server
 function stop(){
@@ -27,6 +31,11 @@ function stop(){
 //Logger
 function log(userid, user, content) {
   console.log(userid + "(" + user + ")" + " - " + content);
+}
+
+//Log purchases to a permanent log
+function receipt(userid, user, item, cost) {
+  console.log(userid + "(" + user + ")" + " $ " + item + " for " + cost + moneyNamePlural);
 }
 
 //Log out a message when bot is ready
@@ -93,6 +102,81 @@ bot.on("message", function(message) {
     if(message.content == prefix + "help"){ //Get commands
       bot.reply(message, "``Commands:\n" + prefix + "ping" + " - Pings the bot to verify it's working\n" + prefix + "icon" + " - Shows the icon that was set int he bot's files.\n" + prefix + "join" + " - Join the server's economy\n" + prefix + moneyNamePlural + " - Check how many " + moneyNamePlural + " you have.``");
       log(message.author.id, message.author.username, message.content);
+    }
+    if(message.content.startsWith(prefix + "buy ")){
+      var item = message.content.slice(5)
+      bot.reply(message, "Buy is currently disabled, but thanks for trying! You tried to buy: " + item);
+      log(message.author.id, message.author.username, message.content);
+    }
+    if(message.content.startsWith(prefix + "shop")){
+      bot.reply(message, "Shop is currently disabled, but thanks for trying!");
+      log(message.author.id, message.author.username, message.content);
+    }
+    if(message.content == prefix + "rankup" && rankEnable == true){
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
+        if (exists) {
+          var contents = fs.readFileSync("./users/" + message.author.id + ".json");
+          var jsonContent = JSON.parse(contents);
+
+          if(jsonContent.rank == 0){
+            if(jsonContent.money >= rankBase){
+              var file = require("./users/" + message.author.id + ".json");
+
+              file.rank += 1;
+              file.money -= rankBase;
+
+              fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
+              if (err) return console.log(err);
+              });
+
+              receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, 10)
+              bot.reply(message, "You have ranked up to rank: " + file.rank);
+            } else {
+              bot.reply(message, "You do not have enough money to rank up(Your Money: " + jsonContent.money + "; Rankup cost: 10)");
+              log(message.author.id, message.author.username, message.content);
+            }
+          } else {
+            var nextRank = jsonContent.rank + 1;
+            var nextRankCost = nextRank * rankBase * rankInc
+            if(jsonContent.money >= nextRankCost){
+              var file = require("./users/" + message.author.id + ".json");
+
+              file.rank += 1;
+              file.money -= nextRankCost;
+
+              fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
+              if (err) return console.log(err);
+              });
+
+              receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, nextRankCost)
+              bot.reply(message, "You have ranked up to rank: " + file.rank);
+            } else {
+              bot.reply(message, "You do not have enough money to rank up(Your Money: " + jsonContent.money + "; Rankup cost: " + nextRankCost + ")");
+              log(message.author.id, message.author.username, message.content);
+            }
+          }
+        } else {
+          if(rankEnable == true) {
+            bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+            log(message.author.id, message.author.username, message.content);
+          }
+        }
+      });
+    }
+    if(message.content == prefix + "rank"){ //Check money
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
+        if (exists) {
+          var contents = fs.readFileSync("./users/" + message.author.id + ".json");
+          var jsonContent = JSON.parse(contents);
+          var nextRank = jsonContent.rank + 1;
+          var nextRankCost = nextRank * rankBase * rankInc
+          bot.reply(message, "Your rank: " + jsonContent.rank + "\n" + "The cost to rank up is: " + nextRankCost);
+          log(message.author.id, message.author.username, message.content);
+        } else {
+          bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+          log(message.author.id, message.author.username, message.content);
+        }
+      });
     }
 });
 
