@@ -118,6 +118,9 @@ bot.on("message", function(message) {
           if(jsonContent.rank == 0){
             if(jsonContent.money >= rankBase){
               var file = require("./users/" + message.author.id + ".json");
+
+              file.rank += 1;
+
               fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
               if (err) return console.log(err);
               });
