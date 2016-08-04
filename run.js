@@ -120,6 +120,7 @@ bot.on("message", function(message) {
               var file = require("./users/" + message.author.id + ".json");
 
               file.rank += 1;
+              file.money -= rankBase;
 
               fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
               if (err) return console.log(err);
@@ -128,7 +129,16 @@ bot.on("message", function(message) {
           } else {
             var nextRank = jsonContent.rank + 1;
             var nextRankCost = nextRank * rankBase * rankInc
-            bot.reply("Your next rank will cost: " + nextRankCost);
+            if(jsonContent.money >= nextRankCost){
+              var file = require("./users/" + message.author.id + ".json");
+
+              file.rank += 1;
+              file.money -= nextRankCost;
+
+              fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
+              if (err) return console.log(err);
+              });
+            }
           }
 
           log(message.author.id, message.author.username, message.content);
