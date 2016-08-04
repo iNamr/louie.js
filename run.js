@@ -35,7 +35,7 @@ function log(userid, user, content) {
 
 //Log purchases to a permanent log
 function receipt(userid, user, item, cost) {
-  console.log(userid + "(" + user + ")" + " bought " + item + " for " + cost + moneyNamePlural);
+  console.log(userid + "(" + user + ")" + " $ " + item + " for " + cost + moneyNamePlural);
 }
 
 //Log out a message when bot is ready
@@ -130,6 +130,7 @@ bot.on("message", function(message) {
               });
 
               receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, 10)
+              bot.reply(message, "You have ranked up to rank: " + file.rank);
             } else {
               bot.reply(message, "You do not have enough money to rank up");
               log(message.author.id, message.author.username, message.content);
@@ -148,6 +149,7 @@ bot.on("message", function(message) {
               });
 
               receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, nextRankCost)
+              bot.reply(message, "You have ranked up to rank: " + file.rank);
             } else {
               bot.reply(message, "You do not have enough money to rank up");
               log(message.author.id, message.author.username, message.content);
