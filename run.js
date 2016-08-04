@@ -2,6 +2,8 @@ var Discord = require("discord.js");
 var fs = require('fs');
 var ini = require('ini');
 var path = require('path');
+var prices = require('./bot/prices');
+var ej = require('./bot/easy-json');
 
 //Parse config
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
@@ -204,6 +206,11 @@ setInterval(function() {
   });
 }, autoMoneyInterval)
 
+setInterval(function() {
+  console.log("Price change!");
+  prices.fluxPrices();
+}, 600000)
+
 console.log("...Settings...\n");
 console.log("..Money Settings..");
 console.log("Prefix: " + prefix);
@@ -211,4 +218,5 @@ console.log("Automatic Money Interval: " + autoMoneyInterval);
 console.log("Automatc Money Ammount: " + autoMoney + "\n");
 
 console.log("^^^End of Settings^^^\n");
-bot.loginWithToken(token);
+
+//bot.loginWithToken(token);
