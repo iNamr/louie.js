@@ -100,17 +100,17 @@ bot.on("message", function(message) {
     }
     if(message.content.startsWith(prefix + "buy ")){
       var item = message.content.slice(5)
-      bot.reply("Buy is currently disabled, but thanks for trying! You tried to buy: " + item);
+      bot.reply(message, "Buy is currently disabled, but thanks for trying! You tried to buy: " + item);
       log(message.author.id, message.author.username, message.content);
     }
     if(message.content.startsWith(prefix + "shop")){
-      bot.reply("Shop is currently disabled, but thanks for trying!");
+      bot.reply(message, "Shop is currently disabled, but thanks for trying!");
       log(message.author.id, message.author.username, message.content);
     }
     if(message.content == prefix + "rankup" && rankEnable == true){
       fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
-          bot.reply("Getting rankup");
+          bot.reply(message, "Getting rankup");
         } else {
           if(rankEnable == true) {
             bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
