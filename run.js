@@ -111,6 +111,24 @@ bot.on("message", function(message) {
       fs.exists('./users/' + message.author.id + '.json', function(exists) {
         if (exists) {
           bot.reply(message, "Getting rankup");
+          //
+          var contents = fs.readFileSync("./users/" + message.author.id + ".json");
+          var jsonContent = JSON.parse(contents);
+
+          if(jsonContent.rank == 0){
+            if(jsonContent.money >= rankBase){
+              fs.writeFile("./users/" + message.author.id + ".json", JSON.stringify(file, null, 2), function (err) {
+              if (err) return console.log(err);
+              });
+            }
+          } else {
+            var nextRank = jsonContent.rank + 1;
+            var nextRankCost = nextRank * rankBase * rankInc
+            bot.reply("Your next rank will cost: " + nextRankCost);
+          }
+
+          log(message.author.id, message.author.username, message.content);
+          //
         } else {
           if(rankEnable == true) {
             bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
