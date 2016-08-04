@@ -35,7 +35,7 @@ function log(userid, user, content) {
 
 //Log purchases to a permanent log
 function receipt(userid, user, item, cost) {
-  console.log(userid + "(" + user + ")" + " $ " + item + " for " + cost + moneyNamePlural);
+  console.log(userid + "(" + user + ")" + " $ " + item + " for " + cost + " " + moneyNamePlural);
 }
 
 //Log out a message when bot is ready
