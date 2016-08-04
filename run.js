@@ -94,7 +94,7 @@ bot.on("message", function(message) {
           bot.reply(message, "Your " + moneyNamePlural + ": " + jsonContent.money);
           log(message.author.id, message.author.username, message.content);
         } else {
-          bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+          bot.reply(message, "You don't have an account right now, please join the economy by doing " + prefix + "join");
           log(message.author.id, message.author.username, message.content);
         }
       });
@@ -157,7 +157,7 @@ bot.on("message", function(message) {
           }
         } else {
           if(rankEnable == true) {
-            bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+            bot.reply(message, "You don't have an account right now, please join the economy by doing " + prefix + "join");
             log(message.author.id, message.author.username, message.content);
           }
         }
@@ -173,7 +173,7 @@ bot.on("message", function(message) {
           bot.reply(message, "Your rank: " + jsonContent.rank + "\n" + "The cost to rank up is: " + nextRankCost);
           log(message.author.id, message.author.username, message.content);
         } else {
-          bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+          bot.reply(message, "You don't have an account right now, please join the economy by doing " + prefix + "join");
           log(message.author.id, message.author.username, message.content);
         }
       });
