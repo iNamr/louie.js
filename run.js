@@ -170,7 +170,7 @@ bot.on("message", function(message) {
           var jsonContent = JSON.parse(contents);
           var nextRank = jsonContent.rank + 1;
           var nextRankCost = nextRank * rankBase * rankInc
-          bot.reply(message, "Your rank: " + jsonContent.rank + + "\nThe cost to rank up is: " + nextRankCost);
+          bot.reply(message, "Your rank: " + jsonContent.rank + "\n" + "The cost to rank up is: " + nextRankCost);
           log(message.author.id, message.author.username, message.content);
         } else {
           bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
