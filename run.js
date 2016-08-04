@@ -132,7 +132,7 @@ bot.on("message", function(message) {
               receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, 10)
               bot.reply(message, "You have ranked up to rank: " + file.rank);
             } else {
-              bot.reply(message, "You do not have enough money to rank up");
+              bot.reply(message, "You do not have enough money to rank up(Your Money: " + jsonContent.money + "; Rankup cost: 10)");
               log(message.author.id, message.author.username, message.content);
             }
           } else {
@@ -151,18 +151,30 @@ bot.on("message", function(message) {
               receipt(message.author.id, message.author.username, "Rankup-Level: " + file.rank, nextRankCost)
               bot.reply(message, "You have ranked up to rank: " + file.rank);
             } else {
-              bot.reply(message, "You do not have enough money to rank up");
+              bot.reply(message, "You do not have enough money to rank up(Your Money: " + jsonContent.money + "; Rankup cost: " + nextRankCost + ")");
               log(message.author.id, message.author.username, message.content);
             }
           }
-
-          log(message.author.id, message.author.username, message.content);
-          //
         } else {
           if(rankEnable == true) {
             bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
             log(message.author.id, message.author.username, message.content);
           }
+        }
+      });
+    }
+    if(message.content == prefix + "rank"){ //Check money
+      fs.exists('./users/' + message.author.id + '.json', function(exists) {
+        if (exists) {
+          var contents = fs.readFileSync("./users/" + message.author.id + ".json");
+          var jsonContent = JSON.parse(contents);
+          var nextRank = jsonContent.rank + 1;
+          var nextRankCost = nextRank * rankBase * rankInc
+          bot.reply(message, "Your rank: " + jsonContent.rank + + "\nThe cost to rank up is: " + nextRankCost);
+          log(message.author.id, message.author.username, message.content);
+        } else {
+          bot.reply(message, "You don't have an account right now, please join the economy by doing !join");
+          log(message.author.id, message.author.username, message.content);
         }
       });
     }
