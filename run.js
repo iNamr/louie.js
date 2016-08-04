@@ -169,9 +169,14 @@ bot.on("message", function(message) {
           var contents = fs.readFileSync("./users/" + message.author.id + ".json");
           var jsonContent = JSON.parse(contents);
           var nextRank = jsonContent.rank + 1;
-          var nextRankCost = nextRank * rankBase * rankInc
-          bot.reply(message, "Your rank: " + jsonContent.rank + "\n" + "The cost to rank up is: " + nextRankCost);
-          log(message.author.id, message.author.username, message.content);
+          if(jsonContent.rank == 0){
+            bot.reply(message, "Your rank: " + jsonContent.rank + "\n" + "The cost to rank up is: 10");
+            log(message.author.id, message.author.username, message.content);
+          } else {
+            var nextRankCost = nextRank * rankBase * rankInc
+            bot.reply(message, "Your rank: " + jsonContent.rank + "\n" + "The cost to rank up is: " + nextRankCost);
+            log(message.author.id, message.author.username, message.content);
+          }
         } else {
           bot.reply(message, "You don't have an account right now, please join the economy by doing " + prefix + "join");
           log(message.author.id, message.author.username, message.content);
