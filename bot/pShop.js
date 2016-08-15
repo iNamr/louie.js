@@ -3,6 +3,7 @@ var fs = require('fs');
 var ini = require('ini');
 var path = require('path');
 var ej = require('./easy-json');
+var uuid = require('uuid');
 
 //Parse config
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
@@ -25,9 +26,22 @@ function getItems(name){
     var contents = fs.readFileSync("__dirname + '/../economy/pData/shop/" + entry);
     var jsonContent = JSON.parse(contents);
     if(entry !== "shop.json" && jsonContent.item == name){
-      
+      console.log(name + "x" + jsonContent.amount + " found for " + jsonContent.price + " " + moneyNamePlural + ". " + "UUID: " + entry.slice(0, -5));
     };
   });
 }
 
-getItems("Gold")
+//getItems("Gold")
+
+function createListing(item, userid, price, amount){
+  var name = uuid.v1();
+
+  fs.createReadStream('./economy/pData/shop/shop.json').pipe(fs.createWriteStream('__dirname + /../economy/pData/shop/' + name + '.json'));
+
+  var link = './economy/pData/shop/' + name + '.json'
+
+  ej.writeJSON(link, "item", item);
+
+}
+
+createListing("gold")

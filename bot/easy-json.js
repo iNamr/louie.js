@@ -7,16 +7,12 @@ var path = require('path');
 //One function
 
 function writeJSON(path, key, value){
-  var contents = fs.readFileSync(path);
-  var jsonContent = JSON.parse(contents);
+  var contents = JSON.parse(fs.readFileSync(path));
 
-  var fileName = path;
-  var file = require(fileName);
+  contents[key] = value;
 
-  file[key] = value;
-
-  fs.writeFile(fileName, JSON.stringify(file, null, 2), function (err) {
-  if (err) return console.log(err);
+  fs.writeFile(path, JSON.stringify(contents, null, 2), function (err) {
+      if (err) return console.log(err);
   });
 }
 
