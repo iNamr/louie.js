@@ -1,9 +1,9 @@
-var Discord = require("discord.js");
-var fs = require('fs');
-var ini = require('ini');
-var path = require('path');
-var prices = require('./bot/prices');
-var ej = require('./bot/easy-json');
+const Discord = require("discord.js");
+const fs = require('fs');
+const ini = require('ini');
+const path = require('path');
+const prices = require('./bot/prices');
+const ej = require('./bot/easy-json');
 
 //Parse config
 var config = ini.parse(fs.readFileSync('./config/settings.ini', 'utf-8'))
