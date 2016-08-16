@@ -32,10 +32,17 @@ function getItems(name){
 
 //getItems("Gold")
 
-function createListing(item, userid, price, amount){
+function createListing(itemName, userid, price, amount){
   var name = uuid.v4();
+  var link = __dirname + '/../economy/pData/shop/' + name + '.json'
 
-  fs.createReadStream(__dirname + '/../economy/pData/shop/shop.json').pipe(fs.createWriteStream(__dirname + '/../economy/pData/shop/newShop.json'));
+  fs.createReadStream(__dirname + '/../economy/pData/shop/shop.json').pipe(fs.createWriteStream(link));
+
+  var newPlayerShop = require(link);
+
+  newPlayerShop.item = "Gold";
+
+  fs.writeFileSync(link, JSON.stringify(myjson));
 }
 
-createListing()
+createListing("Gold")
